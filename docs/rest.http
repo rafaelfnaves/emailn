@@ -1,10 +1,10 @@
-GET http://localhost:3000/json
+GET http://localhost:3000/campaigns
 ###
 
 POST http://localhost:3000/campaigns
 
 {
-  "name": "Produto",
-  "content": "Produto top",
-  "emails": ["email@produto.com"]
+  "name": "Produto 2",
+  "content": "Produto top 2",
+  "emails": ["email2@produto.com"]
 }
