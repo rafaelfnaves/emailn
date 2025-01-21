@@ -24,6 +24,11 @@ func (r *repositoryMock) Get() ([]Campaign, error) {
 	return nil, nil
 }
 
+func (r *repositoryMock) GetBy(id string) (*Campaign, error) {
+	args := r.Called(id)
+	return args.Get(0).(*Campaign), args.Error(1)
+}
+
 var (
 	newCampaign = contract.NewCampaign{
 		Name:    "Test Y",
@@ -81,4 +86,11 @@ func Test_Create_ValidateRepositorySave(t *testing.T) {
 	_, err := service.Create(newCampaign)
 
 	assert.True(errors.Is(err, internalerrors.ErrInternal))
+}
+
+func Test_GetById_ReturnCampaign(t *testing.T) {
+	assert := assert.New(t)
+	campaign := NewCampaign(newCampaign.Name, newCampaign.Content, newCampaign.Emails)
+	repositoryMock := new(repositoryMock)
+	repositoryMock.On("GetBy", mock.Anything).Return(campaign, nil)
 }
