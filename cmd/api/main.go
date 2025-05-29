@@ -20,8 +20,9 @@ func main() {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 
+	db := database.NewDB()
 	campaignService := campaign.ServiceImp{
-		Repository: &database.CampaignRepository{},
+		Repository: &database.CampaignRepository{DB: db},
 	}
 	handler := endpoints.Handler{
 		CampaignService: &campaignService,
@@ -30,5 +31,5 @@ func main() {
 	r.Post("/campaigns", endpoints.HandlerError(handler.CampaignPost))
 	r.Get("/campaigns/{id}", endpoints.HandlerError(handler.CampaignGetById))
 
-	log.Fatal(http.ListenAndServe(":3000", r))
+	log.Fatal(http.ListenAndServe(":8000", r))
 }
