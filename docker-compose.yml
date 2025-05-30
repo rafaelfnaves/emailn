@@ -10,6 +10,29 @@ services:
       - POSTGRES_DB=emailn
     volumes:
       - emailn_db_data:/bitnami/postgresql
+    networks:
+      - emailn_network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin_emailn
+    ports:
+      - "8080:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@emailn.com
+      - PGADMIN_DEFAULT_PASSWORD=admin123
+      - PGADMIN_CONFIG_SERVER_MODE=False
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - emailn_network
+    depends_on:
+      - db
 
 volumes:
   emailn_db_data:
+  pgadmin_data:
+
+networks:
+  emailn_network:
+    driver: bridge
