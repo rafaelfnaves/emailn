@@ -1,10 +1,10 @@
-GET http://localhost:3000/campaigns
+GET http://localhost:8000/campaigns/d0t1ks7d0tmhrlh8mkhg
 ###
 
-POST http://localhost:3000/campaigns
+POST http://localhost:8000/campaigns
 
 {
-  "name": "Produto 1",
-  "content": "Produto top 2",
-  "emails": ["email2@produto.com"]
+  "name": "changed",
+  "content": "changed content",
+  "emails": ["email@content.com"]
 }
